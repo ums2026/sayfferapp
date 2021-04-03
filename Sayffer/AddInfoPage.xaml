@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.AddInfoPage">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="20" Orientation="Vertical">
+            <Picker x:Name="commonallergiespicker" Title="Select Food Allergy Here"/>
+            <Picker x:Name="allergydetails" Title="How Severe is the Allergy?"/>
+            <Picker x:Name="privacydetails" Title="Permissions"/>
+                        <Picker x:Name="studentname" Title="Student Name" IsVisible="false"/>
+            <Label Text="Warning: If you select that you do not want other parents in the class to see the allergy you are selecting (even if it is without the name, which it is), you have to exercise caution if it is a very severe allergy.  Teachers and Nurses are always notified, regardless of your selection above."/>
+            <Entry x:Name="other" Placeholder="Enter Allergy here" IsVisible="false"/>
+            <Button Text="Enter" x:Name="Enter" Clicked="Enter_Clicked" BackgroundColor="Black" TextColor="White"/>
+            <Button Text="Enter" x:Name="EnterOther" IsVisible="false" Clicked="EnterOther_Clicked" BackgroundColor="Black" TextColor="White"/>
+            <Button Text="Back to Dashboard" x:Name="Back" Clicked="BackButton_Clicked"/>
+        </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

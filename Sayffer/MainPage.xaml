@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sayffer.MainPage">
+
+    
+   <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="20" Orientation="Vertical">
+    <Button BackgroundColor="Black" x:Name="SignUp" TextColor="White" Text="Don't have an account? Sign up here!" Clicked="SignUp_Clicked"></Button>
+    <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="Gray"></BoxView>
+    <Entry Placeholder="Email" Keyboard="Email" x:Name="UserEmail"></Entry>
+
+    <Entry Placeholder="Password" x:Name="UserPassword" IsPassword="True"></Entry>
+    <Button BackgroundColor="Black" x:Name="Login" TextColor="White" Text="Log In" Clicked="Login_Clicked"></Button>
+    
+
+</StackLayout>
+
+</ContentPage>

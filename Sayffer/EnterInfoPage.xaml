@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.EnterInfoPage">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="20" Orientation="Vertical">
+            <Entry Keyboard="Email" Placeholder="Email" x:Name="NewUserEmail"></Entry>
+            <Entry Placeholder="Password" x:Name="NewUserPassword" IsPassword="True">
+                
+            </Entry>
+            <Entry x:Name="confirmPassword" Placeholder="Confirm Password" IsPassword="true">
+                
+            </Entry>
+            <Picker x:Name="role" Title="Select Role"/>
+            <Entry Placeholder="Name" x:Name="UserName"></Entry>
+            <Entry Placeholder="School (Please do not abbreviate)" x:Name="School"/>
+            <Entry Placeholder="City" x:Name="City"/>
+            <Entry Placeholder="Nurse Verification Code" x:Name="NurseVerificationCode" IsVisible="false"></Entry>
+            <StackLayout Orientation="Horizontal">
+                <CheckBox x:Name="checkbox"/>
+                <Label>By checking this box, you agree that you are entering accurate information, you give permission for this data to be shared within your school when applicable, and you agree to not misuse data in this app by distributing it in an unauthorized fashion.</Label>
+            </StackLayout>
+            <Button x:Name="Submit2" IsVisible="false" Text="Finish" Clicked="Submit2_Clicked" BackgroundColor="Black" TextColor="White"/>
+            <Label  HorizontalTextAlignment="Center" Text="If more than one of these roles applies to you, please register for seperate accounts with different email addresses, as your email adress is your username :)" FontSize="Small"></Label>
+            <Button BackgroundColor="Black" x:Name="Enter" TextColor="White" Text="Enter" Clicked="Enter_Clicked"></Button>
+
+        </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

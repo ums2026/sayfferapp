@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.AddMedicalInfo">
+    <ContentPage.Content>
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="20" Orientation="Vertical">
+            <Picker x:Name="commonmedicalallergiespicker" Title="Select Medical Allergy Here"/>
+                                    <Picker x:Name="studentname" Title="Student Name" IsVisible="false"/>
+            <Entry x:Name="other" Placeholder="Enter Allergy here" IsVisible="false"/>
+            <Button Text="Enter" x:Name="Enter" Clicked="Enter_Clicked" BackgroundColor="Black" TextColor="White"/>
+            <Button Text="Enter" x:Name="EnterOther" IsVisible="false" Clicked="EnterOther_Clicked" BackgroundColor="Black" TextColor="White"/>
+            <Button Text="Back to Dashboard" x:Name="Back" Clicked="BackButton_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

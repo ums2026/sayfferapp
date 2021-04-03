@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.AddInfoNurses">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="20" Orientation="Vertical">
+            <Label>Remember to make sure the person you are entering data for has an account so that they are in our system</Label>
+        <Picker x:Name="AddInfoSpecifics" Title="Select What Info To Enter"/>
+                        <Label x:Name="LabelText" Text="Warning: If you select that you do not want other parents in the class to see the allergy you are selecting (even if it is without the name, which it is), you have to exercise caution if it is a very severe allergy.  Teachers and Nurses are always notified, regardless of your selection above."/>
+            <Picker x:Name="ClassCodes" Title="Select their class code" IsVisible="false"/>
+            <Picker x:Name="viruscasespicker" Title="Select Virus Case Here" IsVisible="false"/>
+            <Picker x:Name="commonmedicalallergiespicker" Title="Select Medical Allergy Here" IsVisible="false"/>
+            <Picker x:Name="commonallergiespicker" Title="Select Food Allergy Here" IsVisible="false"/>
+            <Picker x:Name="allergydetails" Title="How Severe is the Allergy?" IsVisible="false"/>
+                        <Picker x:Name="role" SelectedIndexChanged="role_SelectedIndexChanged" Title="Person's Role" IsVisible="true"/>
+            <Picker x:Name="privacydetails" Title="Permissions" IsVisible="false"/>
+            <Entry x:Name="otherFoodAllergy" Placeholder="Type Food Allergy Here" IsVisible="false"/>
+            <Entry x:Name="otherVirusCase" Placeholder="Type Virus Case Here" IsVisible="false"/>
+                        <Entry x:Name="otherMedicalAllergy" Placeholder="Type Medical Allergy Here" IsVisible="false"/>
+            <Entry x:Name="Emailenter" Placeholder="Enter the email of the person this info applies to"/>
+            <Entry x:Name="Name" Placeholder="Enter the name of the person who this info applies to"></Entry>
+                        <Entry x:Name="ParentName" Placeholder="Please enter the name of the parent or guardian" IsVisible="false"></Entry>
+
+            <Button BackgroundColor="Black" TextColor="White" x:Name="EnterOtherFoodAllergy" Text="Enter" IsVisible="false" Clicked="EnterOtherFoodAllergy_Clicked"/>
+                        <Button BackgroundColor="Black" TextColor="White" x:Name="EnterOtherVirusCase" Text="Enter" IsVisible="false" Clicked="EnterOtherVirusCase_Clicked"/>
+                        <Button BackgroundColor="Black" TextColor="White" x:Name="EnterOtherMedicalAllergy" Text="Enter" IsVisible="false" Clicked="EnterOtherMedicalAllergy_Clicked"/>
+            <Button x:Name="Enter" BackgroundColor="Black" TextColor="White" Text="Enter" Clicked="Enter_Clicked"/>
+            <Button x:Name="EnterInfo" BackgroundColor="Black" IsVisible="false" TextColor="White" Text="Enter" Clicked="EnterInfo_Clicked"/>
+
+            <Button x:Name="BackButton" Text="Back to Dashboard" BackgroundColor="Black" TextColor="White" Clicked="BackButton_Clicked"/>
+</StackLayout>
+            </ScrollView>
+        </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.ParentsJoinClassPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Vertical" Margin="20" Spacing="20">
+        <Entry Placeholder="Class Code" x:Name="ClassCode"></Entry>
+        <Entry x:Name="Name" Placeholder="Enter your student's name here"></Entry>
+        <Label Text="Enter the code provided by your student's teacher!"/>
+        <Button BackgroundColor="Black" TextColor="White" x:Name="Join" Text="Join" Clicked="Join_Clicked"/>
+         <Button x:Name="BackButton" BackgroundColor="Black" TextColor="White" Text="Back to Dashboard" Clicked="BackButton_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.AddInfoAboutVirusCases">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="20" Orientation="Vertical">
+            <Picker x:Name="viruscasespicker" Title="Select Virus Case Here"/>
+            <Picker x:Name="studentname" Title="Student Name"/>
+            <Label Text="Your student's name and info will only be visible to the school nurse, your teacher, and school admin"/>
+            <Entry x:Name="other" Placeholder="Enter Student Virus Case here" IsVisible="false"/>
+            <Button x:Name="Enter" BackgroundColor="Black" TextColor="White" Text="Enter" Clicked="Enter_Clicked"/>
+            <Button x:Name="EnterOther" BackgroundColor="Black" TextColor="White" IsVisible="false" Text="Enter" Clicked="EnterOther_Clicked"></Button>
+            <Button x:Name="BackButton" Text="Back to Dashboard" BackgroundColor="Black" TextColor="White" Clicked="BackButton_Clicked"/>
+        </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

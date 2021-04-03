@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.NavigateToAddInfoPages">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Vertical" Margin="20" Spacing="10">
+            <Button x:Name="AddInfo" Text="Add Info - Food Allergies" BackgroundColor="Black" TextColor="White" Clicked="AddInfo_Clicked"/>
+        <Button x:Name="AddMedicalInfo" Text="Add Info - Other Allergies (Medical)" BackgroundColor="Black" TextColor="White" Clicked="AddMedicalInfo_Clicked"/>
+            <Button x:Name="addinfocaseofvirus" Text="Add Info - Case of a virus" Clicked="addinfocaseofvirus_Clicked" BackgroundColor="Black" TextColor="White"/>
+            <Label>If you need to enter a case of head lice, please click the "Add Info - Case of a virus" button to enter the info.</Label>
+            <Button Text="Back to Dashboard" x:Name="Back" Clicked="BackButton_Clicked" BackgroundColor="Black" TextColor="White"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

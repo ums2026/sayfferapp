@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.TeachersCreateClassCode">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Vertical" Margin="20" Spacing="10">
+            <Label x:Name="RandomCode"></Label>
+            <Label Text="Ask parents to enter this code to join the class!"/>
+            <Label Text="(It may take a minute to show up)"></Label>
+            <Button x:Name="BackButton" BackgroundColor="Black" TextColor="White" Text="Back to Dashboard" Clicked="BackButton_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

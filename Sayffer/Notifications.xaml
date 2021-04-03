@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.Notifications">
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="20" Orientation="Vertical">
+            <Label>Your notifications (may take a few seconds to show up):</Label>
+            <ListView  x:Name="NotificationsDisplay" RowHeight="75" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell >
+                            <StackLayout>
+                                <Label Text="{Binding Notification}"></Label>
+                                <Label Text="{Binding Time}" FontSize="Small"></Label>
+</StackLayout>
+                                   </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+                </ScrollView>
+    </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  x:Name="BacktoDashboard" Text="Back to Dashboard" Clicked="BacktoDashboard_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+</ContentPage>

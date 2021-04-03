@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.CreateNurseVerificationCode">
+    <ContentPage.Content>
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="20" Orientation="Vertical">
+            <Label x:Name="RandomCode"></Label>
+            <Label Text="Ask your school nurse to enter this code for verification"/>
+            <Label Text="(It may take a minute to show up)"></Label>
+            <Button x:Name="BackButton" BackgroundColor="Black" TextColor="White" Text="Back to Dashboard" Clicked="BackButton_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

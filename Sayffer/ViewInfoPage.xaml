@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.ViewInfoPage">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Vertical" Margin="20" Spacing="10">
+            <Picker x:Name="ClassCodes" Title="Class Codes"/>
+            <Picker Title="What info to display" x:Name="Optionsforfiltering"/>
+            <Label Text="Class Codes - select the one you would like to view (the class code is the name of the teacher with a number at the end.  Contact the teacher for their class code if you are not sure which one is theirs."></Label>
+            <Label Text="Once you have selected the class and filled in what information you want to receive, hit 'Next'"></Label>
+            <Button x:Name="NextButton" Text="Next" Clicked="NextButton_Clicked" BackgroundColor="Black" TextColor="White"></Button>
+            <Button x:Name="BackButton" Text="Back to Dashboard" Clicked="BackButton_Clicked" BackgroundColor="Black" TextColor="White"/>
+            <ListView x:Name="InfoListNursesFoodAllergies" IsVisible="false">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding FoodAllergy}"></Label>
+                                <Label Text="{Binding NewUserEmail}" FontSize="Small"></Label>
+                                <Label Text="{Binding Name}" FontSize="Small"></Label>
+                                <Label Text="{Binding ParentName}" FontSize="Small"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="InfoListNursesMedicalAllergiesTeachers" IsVisible="false">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding MedicalAllergies}"
+                                  Detail="{Binding NewUserEmail}"
+                                TextColor="DarkBlue"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="InfoListNursesMedicalAllergiesStudents" IsVisible="false">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding MedicalAllergies}"
+                                  Detail="{Binding NewUserEmail}"
+                                TextColor="DarkBlue"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="InfoListNursesVirusCasesInfo" IsVisible="false">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding HealthInfoVirusCase}"
+                                  Detail="{Binding NewUserEmail}"
+                                TextColor="DarkBlue"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label x:Name="Alertfoodallergies"/>
+            <Label x:Name="Alertmedicalallergiesteacher"/>
+            <Label x:Name="Alertmedicalallergiesstudent"/>
+                        <Label x:Name="Alertviruscases"/>
+
+        </StackLayout>
+</ScrollView>
+    </ContentPage.Content>
+</ContentPage>

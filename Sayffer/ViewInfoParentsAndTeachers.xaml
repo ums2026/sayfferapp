@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.ViewInfoParentsAndTeachers">
+       <ContentPage.Content>
+        <ScrollView>
+        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Vertical" Margin="20" Spacing="10">
+            <Label Text="COVID-19 General Data At-A-Glance" FontAttributes="Bold" TextColor="Black"/>
+            <Label x:Name="COVIDCasesInSchool" Text="{Binding COVIDcasesinschool}"/>
+
+        <Label x:Name="MostRecentCOVIDDate"/>
+            <Label Text="Viral Flu General Data At-A-Glance" FontAttributes="Bold" TextColor="Black"/>
+            <Label x:Name="FluCasesInSchool" Text="{Binding Flucasesinschool}"/>
+
+        <Label x:Name="MostRecentFluDate"/>
+            
+            <Button x:Name="BackToDashboard" Text="Back to Dashboard" BackgroundColor="Black" TextColor="White" Clicked="BackToDashboard_Clicked"/>
+
+        </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

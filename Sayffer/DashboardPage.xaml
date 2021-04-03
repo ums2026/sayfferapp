@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.DashboardPage">
+    <ContentPage.ToolbarItems>
+    <ToolbarItem Order="Primary"
+                 Text="{Binding NotificationHeader}"
+                 x:Name="Notifications"
+                 Clicked="Notifications_Clicked"/>
+        
+                     
+</ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            
+        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Vertical" Margin="20" Spacing="10">
+        <Label x:Name="DisplayName" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <Label x:Name="Username" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <Label x:Name="DisplayRole" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <Label x:Name="DisplaySchool"  TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <Label x:Name="DisplayCity"  TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <Label x:Name="DisplayClasses"  TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <Label x:Name="Allergiesinclass" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+        <Button x:Name="LogOut" BackgroundColor="Black" Text="Log Out" TextColor="White" Clicked="LogOut_Clicked"/>
+        <Button x:Name="NewClassButton" BackgroundColor="Black" Text="Create a class" TextColor="White" Clicked="NewClassButton_Clicked"/>
+        <Button x:Name="SendCustomMessage" BackgroundColor="Black" Text="Send a custom message" TextColor="White" Clicked="SendCustomMessage_Clicked"/>
+        <Button x:Name="CreateNurseCode" BackgroundColor="Black" Text="Create a nurse verification code" TextColor="White" Clicked="CreateNurseCode_Clicked"/>
+        <Button x:Name="JoinClassButton" BackgroundColor="Black" Text="Join a Class" TextColor="White" Clicked="JoinClassButton_Clicked"/>
+        <Button x:Name="AddInfo" Text="Add Info" BackgroundColor="Black" TextColor="White" Clicked="AddInfo_Clicked"/>
+        <Button x:Name="AddInfoForNurses" Text="Add Info Manually" BackgroundColor="Black" TextColor="White" Clicked="AddInfoNurses_Clicked"/>
+        <Button x:Name="ViewDataParentsAndTeachers" BackgroundColor="Black" TextColor="White" Text="View more data for your class/school" Clicked="ViewDataParentsAndTeachers_Clicked"/>
+        <Button x:Name="ViewPastEnteredInfo" Clicked="ViewPastEnteredInfo_Clicked" Text="View Past Entered Info" BackgroundColor="Black" TextColor="White"></Button>
+            <Button x:Name="ViewInfo" Text="View Info" BackgroundColor="Black" TextColor="White" Clicked="ViewInfo_Clicked"/>
+        <Label Text="COVID-19 General Data At-A-Glance" FontAttributes="Bold" TextColor="Black"/>
+            <Label x:Name="COVIDCasesInSchool" Text="{Binding COVIDcasesinschool}"/>
+           
+        <Label x:Name="MostRecentCOVIDDate"/>
+            <Label x:Name="sayffer" TextColor="Blue" Text="Visit the Sayffer website" TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>  
+            <Label x:Name="labelheader" Text="Food allergies in the class you are enrolled in:" FontAttributes="Bold"/>
+            <ListView x:Name="InfoLstParents" RowHeight="100" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell
+                               >
+                            <StackLayout VerticalOptions="CenterAndExpand">
+                                <Label Text="{Binding FoodAllergies}" TextColor="Navy"></Label>
+                                <Label Text="{Binding AllergyDetails}" TextColor="Navy"></Label>
+                                <Label Text="{Binding ClassCode}" FontSize="Small" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+             <ListView x:Name="InfoLstTeachers" RowHeight="120" HasUnevenRows="True">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell
+                               >
+                            <StackLayout>
+                                <Label Text="{Binding FoodAllergies}" TextColor="Navy"></Label>
+                                <Label Text="{Binding AllergyDetails}" TextColor="Navy"></Label>
+                                <Label Text="{Binding NewUserEmail}" FontSize="Small" FontAttributes="Bold"></Label>
+                                <Label Text="{Binding ClassCode}" FontSize="Small" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+                    
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
