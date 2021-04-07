@@ -22,6 +22,14 @@
         <Label x:Name="DisplayCity"  TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
         <Label x:Name="DisplayClasses"  TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
         <Label x:Name="Allergiesinclass" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+
+            <Label x:Name="NursesSignedUp" IsVisible="False"></Label>
+        <Label x:Name="AdminSignedUp" IsVisible="False"></Label>
+        <Label x:Name="TeachersSignedUp" IsVisible="False"></Label>
+                    <Label x:Name="ParentsSignedUp" IsVisible="False"></Label>
+            <Label x:Name="AdminLabel" IsVisible="False"></Label>
+
+
         <Button x:Name="LogOut" BackgroundColor="Black" Text="Log Out" TextColor="White" Clicked="LogOut_Clicked"/>
         <Button x:Name="NewClassButton" BackgroundColor="Black" Text="Create a class" TextColor="White" Clicked="NewClassButton_Clicked"/>
         <Button x:Name="SendCustomMessage" BackgroundColor="Black" Text="Send a custom message" TextColor="White" Clicked="SendCustomMessage_Clicked"/>

@@ -1366,6 +1366,39 @@ namespace Sayffer.Helper
 
         }
 
+        public static async Task<string> GetNumberOfPeopleInSchoolRegistered(string school, string city, string role)
+        {
+            string Web_API_Key = "AIzaSyBjLg2kJqpKcECxDOdm2iQb6yz4utpVI5s";
+
+            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(Web_API_Key));
+            var savedfirebaseauth = JsonConvert.DeserializeObject<Firebase.Auth.FirebaseAuth>(Preferences.Get("MyFirebaseRefreshToken", ""));
+            var RefreshedContent = await authProvider.RefreshAuthAsync(savedfirebaseauth);
+            Preferences.Set("MyFirebaseRefreshToken", JsonConvert.SerializeObject(RefreshedContent));
+            string UsersEmailToDisplay = savedfirebaseauth.User.Email;
+            string Email = UsersEmailToDisplay;
+            Firebase.Auth.User user = savedfirebaseauth.User;
+
+            var firebaseClient = new FirebaseClient(
+                            url,
+                            new FirebaseOptions
+                            {
+                                AuthTokenAsyncFactory = () => Task.FromResult(RefreshedContent.FirebaseToken)
+                            });
+            string CitySchool = city + school;
+            var people = (await firebaseClient
+                 .Child("Persons")
+                 .OnceAsync<Person>())
+                 .Select(item => new Person
+                 {
+                     School = item.Object.School,
+                     City = item.Object.City,
+
+                     Role = item.Object.Role
+
+                 }).Where(a => ((a.City.ToLower() + a.School.ToLower()).Replace(" ", "")) == CitySchool.ToLower().Replace(" ", "")).Where(a => a.Role == role);
+            return people.Count().ToString();
+        }
+
         //Find school nurse
         public static async Task GetNurseAddNotifs(string school, string city, string allergy, string name)
         {
@@ -1459,7 +1492,7 @@ namespace Sayffer.Helper
 
 
         }
-        //NOT FINISHED
+
         public static async Task SendMessageToClass(string school, string city, string message, string classcode, string name, string receiver)
         {
             string Web_API_Key = "AIzaSyBjLg2kJqpKcECxDOdm2iQb6yz4utpVI5s";
@@ -1510,7 +1543,7 @@ namespace Sayffer.Helper
             }
 
         }
-        public static async Task SendMessageToSchool(string school, string city, string message, string subject, string name)
+        public static async Task SendMessageToSchool(string school, string city, string message, string name)
         {
             string CitySchool = city.ToLower() + school.ToLower();
 
@@ -1556,11 +1589,11 @@ namespace Sayffer.Helper
 
               .Child(CitySchool.Replace(" ", ""))
               .Child("Messages")
-              .PostAsync(new CustomMessageToSend() { MessageText = message, MessageStatus = "Unread", Time = DateTime.Now.ToString("MM/dd/yyyy H:mm"), Subject = subject, From = name, To = CitySchool.Replace(" ", "") });
+              .PostAsync(new CustomMessageToSend() { MessageText = message, MessageStatus = "Unread", Time = DateTime.Now.ToString("MM/dd/yyyy H:mm"), From = name, To = CitySchool.Replace(" ", "") });
 
 
         }
-        public static async Task SendMessageToTeachers(string school, string city, string message, string subject, string name)
+        public static async Task SendMessageToTeachers(string school, string city, string message, string name)
         {
             string Web_API_Key = "AIzaSyBjLg2kJqpKcECxDOdm2iQb6yz4utpVI5s";
 
@@ -1605,7 +1638,7 @@ namespace Sayffer.Helper
 
           .Child(CitySchool.Replace(" ", ""))
           .Child("Messages")
-          .PostAsync(new CustomMessageToSend() { MessageText = message, MessageStatus = "Unread", Time = DateTime.Now.ToString("MM/dd/yyyy H:mm"), Subject = subject, From = name, To = "Teachers" });
+          .PostAsync(new CustomMessageToSend() { MessageText = message, MessageStatus = "Unread", Time = DateTime.Now.ToString("MM/dd/yyyy H:mm"), From = name, To = "Teachers" });
 
 
         }

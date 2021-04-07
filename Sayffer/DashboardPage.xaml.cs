@@ -59,10 +59,8 @@ namespace Sayffer
 
                 string UsersEmailToDisplay = savedfirebaseauth.User.Email;
 
-                if (DisplayClasses.Text == "Classes: ")
-                {
-                    AddInfo.SetValue(IsVisibleProperty, false);
-                }
+                
+                
                 if (UsersEmailToDisplay == null)
                 {
                     await App.Current.MainPage.DisplayAlert("Oops!", "Token Expired - issues loading info", "Ok");
@@ -303,7 +301,27 @@ namespace Sayffer
 
 
                     }
+                    if (DisplayClasses.Text == "Classes: ")
+                    {
+                        AddInfo.SetValue(IsVisibleProperty, false);
+                    }
+
+                    if(person.Role == "Admin")
+                    {
+                        NursesSignedUp.SetValue(IsVisibleProperty, true);
+                        NursesSignedUp.Text = "Number of Nurses in this school with Sayffer accounts: " + await FirebaseHelper.GetNumberOfPeopleInSchoolRegistered(person.School, person.City, "Nurse");
+                        AdminSignedUp.SetValue(IsVisibleProperty, true);
+                        AdminSignedUp.Text = "Number of Admin in this school with Sayffer accounts: " + await FirebaseHelper.GetNumberOfPeopleInSchoolRegistered(person.School, person.City, "Admin");
+                        TeachersSignedUp.SetValue(IsVisibleProperty, true);
+                        TeachersSignedUp.Text = "Number of Teachers in this school with Sayffer accounts: " + await FirebaseHelper.GetNumberOfPeopleInSchoolRegistered(person.School, person.City, "Teacher");
+                        ParentsSignedUp.SetValue(IsVisibleProperty, true);
+                        ParentsSignedUp.Text = "Number of Parents in this school with Sayffer accounts: " + await FirebaseHelper.GetNumberOfPeopleInSchoolRegistered(person.School, person.City, "Parent");
+                        AdminLabel.SetValue(IsVisibleProperty, true);
+                        AdminLabel.Text = "If you see that there are more people signed up than there should be, please contact us through our website at sayffer.com";
+                        
+                    }
                 }
+
             }
 
             catch (Exception x)

@@ -43,9 +43,14 @@ namespace Sayffer
                 "All parents",
                 "All administators"
             };
-                var personclasscode = await FirebaseHelper.GetPersonsClassCodes();
-                ClassCodeSend.ItemsSource = personclasscode;
-                var allclasscodes = await FirebaseHelper.GetAllClassCodes(cityschool);
+                if(person.Role == "Teacher")
+                {
+                    var personclasscode = await FirebaseHelper.GetPersonsClassCodes();
+                    ClassCodeSend.ItemsSource = personclasscode;
+                }
+                else {
+                    ClassCodeSend.IsVisible = false;
+                    var allclasscodes = await FirebaseHelper.GetAllClassCodes(cityschool);
                 foreach (var classcode in allclasscodes)
                 {
                     string classcodeforuse = classcode.ToString();
@@ -72,6 +77,8 @@ namespace Sayffer
 
 
                 }
+                }
+                
 
                 if (person.Role != "Nurse" && person.Role != "Admin")
                 {
@@ -116,199 +123,29 @@ namespace Sayffer
                             if (SendTo.SelectedItem.ToString() == "All people in school")
                             {
                                 string CitySchool = (await FirebaseHelper.GetPersonCity() + await FirebaseHelper.GetPersonSchool()).Replace(" ", "").ToLower();
-                                /*if (Device.RuntimePlatform == "Android")
-                                {
-                                    WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
-                                    tRequest.Method = "post";
-                                    string serverkey = "AAAAgDqIECw:APA91bFMNd3twf8jomqZyXNkY7zz8CvBX5ZlfknEEVoa6RtjkfKhMFhBy4onehiMuYVCTR91T5uHxJ7ie_zBmacMJZlVr-GEzxK3zN0s20HNjBbeTj2JzpUNdADRGv9VEUl4SPm5YoWT";
-                                    string senderid = "550737809452";
-                                    tRequest.Headers.Add(string.Format("Authorization: key={0}", serverkey));
-                                    tRequest.Headers.Add(string.Format("Sender: id={0}", senderid));
-                                    tRequest.ContentType = "application/json";
-                                    var message = new
-                                    {
-                                        to = "/topics/" + CitySchool,
-                                        priority = "high",
-                                        content_available = true,
-                                        notification = new
-                                        {
-                                            title = "New Message Notification from " + person.Name,
-                                            body = MessageText.Text
-
-                                        },
-                                    };
-                                    string postbody = JsonConvert.SerializeObject(message).ToString();
-                                    Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
-                                    tRequest.ContentLength = byteArray.Length;
-                                    using (Stream dataStream = tRequest.GetRequestStream())
-                                    {
-                                        dataStream.Write(byteArray, 0, byteArray.Length);
-                                        using (WebResponse tResponse = tRequest.GetResponse())
-                                        {
-                                            using (Stream dataStreamResponse = tResponse.GetResponseStream())
-                                            {
-                                                if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
-                                                    {
-                                                        String sResponseFromServer = tReader.ReadToEnd();
-                                                        //result.Response = sResponseFromServer;
-                                                    }
-                                            }
-                                        }
-                                    }
-                                }*/
+                                await FirebaseHelper.SendMessageToSchool(await FirebaseHelper.GetPersonSchool(), await FirebaseHelper.GetPersonCity(), MessageText.Text, await FirebaseHelper.GetPersonName(CitySchool));     
                             }
                             if (SendTo.SelectedItem.ToString() == "All teachers")
                             {
-
+                                string CitySchool = (await FirebaseHelper.GetPersonCity() + await FirebaseHelper.GetPersonSchool()).Replace(" ", "").ToLower();
+                                await FirebaseHelper.SendMessageToTeachers(await FirebaseHelper.GetPersonSchool(), await FirebaseHelper.GetPersonCity(), MessageText.Text, await FirebaseHelper.GetPersonName(CitySchool));
                             }
 
                         }
                         else
                         {
-                            /*if (Device.RuntimePlatform == "Android")
-                            {
-                                string CitySchool = (person.City.ToLower() + person.School.ToLower()).Replace(" ", "");
-                                string sendto = (CitySchool + SendTo.SelectedItem.ToString()).ToLower().Replace(" ","");
-                                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
-                                tRequest.Method = "post";
-                                string serverkey = "AAAAgDqIECw:APA91bFMNd3twf8jomqZyXNkY7zz8CvBX5ZlfknEEVoa6RtjkfKhMFhBy4onehiMuYVCTR91T5uHxJ7ie_zBmacMJZlVr-GEzxK3zN0s20HNjBbeTj2JzpUNdADRGv9VEUl4SPm5YoWT";
-                                string senderid = "550737809452";
-                                tRequest.Headers.Add(string.Format("Authorization: key={0}", serverkey));
-                                tRequest.Headers.Add(string.Format("Sender: id={0}", senderid));
-                                tRequest.ContentType = "application/json";
-                                var message = new
-                                {
-                                    to = "/topics/" + sendto,
-                                    priority = "high",
-                                    content_available = true,
-                                    notification = new
-                                    {
-                                        title = "New Message Notification from " + person.Name,
-                                        body = MessageText.Text
-
-                                    },
-                                };
-                                string postbody = JsonConvert.SerializeObject(message).ToString();
-                                Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
-                                tRequest.ContentLength = byteArray.Length;
-                                using (Stream dataStream = tRequest.GetRequestStream())
-                                {
-                                    dataStream.Write(byteArray, 0, byteArray.Length);
-                                    using (WebResponse tResponse = tRequest.GetResponse())
-                                    {
-                                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
-                                        {
-                                            if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
-                                                {
-                                                    String sResponseFromServer = tReader.ReadToEnd();
-                                                    //result.Response = sResponseFromServer;
-                                                }
-                                        }
-                                    }
-                                }
-                            }*/
-
+                            string school = await FirebaseHelper.GetPersonSchool();
+                            string city = await FirebaseHelper.GetPersonCity();
+                            await FirebaseHelper.SendMessageToClass(school, city, MessageText.Text, ClassCodeSend.SelectedItem.ToString(), await FirebaseHelper.GetPersonName((city + school).ToLower().Replace(" ", "")), ClassCodeSend.SelectedItem.ToString());
                         }
-                        if (SendTo.SelectedItem.ToString() == "All teachers")
-                        {
-                            /*if (Device.RuntimePlatform == "Android")
-                            {
-                                string CitySchool = (person.City.ToLower() + person.School.ToLower()).Replace(" ", "");
-                                string sendto = CitySchool + "teachers";
-                                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
-                                tRequest.Method = "post";
-                                string serverkey = "AAAAgDqIECw:APA91bFMNd3twf8jomqZyXNkY7zz8CvBX5ZlfknEEVoa6RtjkfKhMFhBy4onehiMuYVCTR91T5uHxJ7ie_zBmacMJZlVr-GEzxK3zN0s20HNjBbeTj2JzpUNdADRGv9VEUl4SPm5YoWT";
-                                string senderid = "550737809452";
-                                tRequest.Headers.Add(string.Format("Authorization: key={0}", serverkey));
-                                tRequest.Headers.Add(string.Format("Sender: id={0}", senderid));
-                                tRequest.ContentType = "application/json";
-                                var message = new
-                                {
-                                    to = "/topics/" + sendto,
-                                    priority = "high",
-                                    content_available = true,
-                                    notification = new
-                                    {
-                                        title = "New Message Notification from " + person.Name,
-                                        body = MessageText.Text
-
-                                    },
-                                };
-                                string postbody = JsonConvert.SerializeObject(message).ToString();
-                                Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
-                                tRequest.ContentLength = byteArray.Length;
-                                using (Stream dataStream = tRequest.GetRequestStream())
-                                {
-                                    dataStream.Write(byteArray, 0, byteArray.Length);
-                                    using (WebResponse tResponse = tRequest.GetResponse())
-                                    {
-                                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
-                                        {
-                                            if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
-                                                {
-                                                    String sResponseFromServer = tReader.ReadToEnd();
-                                                    //result.Response = sResponseFromServer;
-                                                }
-                                        }
-                                    }
-                                }
-                            }
-                        }*/
-                        }
-                        else
-                        {
-                            /*if (Device.RuntimePlatform == "Android")
-                            {
-                                string CitySchool = (person.City.ToLower() + person.School.ToLower()).Replace(" ", "");
-                                string sendto = (CitySchool + person.ClassCode).ToLower().Replace(" ", "");
-                                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
-                                tRequest.Method = "post";
-                                string serverkey = "AAAAgDqIECw:APA91bFMNd3twf8jomqZyXNkY7zz8CvBX5ZlfknEEVoa6RtjkfKhMFhBy4onehiMuYVCTR91T5uHxJ7ie_zBmacMJZlVr-GEzxK3zN0s20HNjBbeTj2JzpUNdADRGv9VEUl4SPm5YoWT";
-                                string senderid = "550737809452";
-                                tRequest.Headers.Add(string.Format("Authorization: key={0}", serverkey));
-                                tRequest.Headers.Add(string.Format("Sender: id={0}", senderid));
-                                tRequest.ContentType = "application/json";
-                                var message = new
-                                {
-                                    to = "/topics/" + sendto,
-                                    priority = "high",
-                                    content_available = true,
-                                    notification = new
-                                    {
-                                        title = "New Message Notification from " + person.Name,
-                                        body = MessageText.Text
-                                    },
-                                };
-                                string postbody = JsonConvert.SerializeObject(message).ToString();
-                                Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
-                                tRequest.ContentLength = byteArray.Length;
-                                using (Stream dataStream = tRequest.GetRequestStream())
-                                {
-                                    dataStream.Write(byteArray, 0, byteArray.Length);
-                                    using (WebResponse tResponse = tRequest.GetResponse())
-                                    {
-                                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
-                                        {
-                                            if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
-                                                {
-                                                    String sResponseFromServer = tReader.ReadToEnd();
-                                                    //result.Response = sResponseFromServer;
-                                                }
-                                        }
-                                    }
-                                }
-                            }
-                        }*/
-
-
-                        }
+                        
 
                     }
                     else
                     {
                         string school = await FirebaseHelper.GetPersonSchool();
                         string city = await FirebaseHelper.GetPersonCity();
-                        await FirebaseHelper.SendMessageToClass(school, city, MessageText.Text, ClassCodeSend.SelectedItem.ToString(), await FirebaseHelper.GetPersonName((city + school).ToLower().Replace(" ", "")), ClassCodeSend.SelectedItem.ToString());
+                        await FirebaseHelper.SendMessageToClass(school, city, MessageText.Text, SendTo.SelectedItem.ToString(), await FirebaseHelper.GetPersonName((city + school).ToLower().Replace(" ", "")), SendTo.SelectedItem.ToString());
                     }
 
                 }
