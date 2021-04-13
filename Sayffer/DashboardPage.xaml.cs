@@ -133,7 +133,7 @@ namespace Sayffer
                         if (DisplayRole.Text.ToLower() == "teacher")
                         {
                             NewClassButton.SetValue(IsVisibleProperty, true);
-
+                            ViewPeopleInClass.SetValue(IsVisibleProperty, true);
                         }
                         else
                         {
@@ -423,5 +423,9 @@ namespace Sayffer
 
         }
 
+        void ViewPeopleInClass_Clicked(System.Object sender, System.EventArgs e)
+        {
+            App.Current.MainPage = new NavigationPage(new PeopleEnrolledInClass());
+        }
     }
 }

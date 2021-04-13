@@ -20,13 +20,10 @@ namespace Sayffer
     public partial class EnterInfoPage : ContentPage
     {
         public string Web_API_Key = "AIzaSyBjLg2kJqpKcECxDOdm2iQb6yz4utpVI5s";
-        Account account;
-        AccountStore store;
         FirebaseHelper firebaseHelper = new FirebaseHelper();
         public EnterInfoPage()
         {
             InitializeComponent();
-            store = AccountStore.Create();
             var roles = new List<string>()
                     {
                         "Parent",

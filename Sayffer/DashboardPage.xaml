@@ -28,7 +28,7 @@
         <Label x:Name="TeachersSignedUp" IsVisible="False"></Label>
                     <Label x:Name="ParentsSignedUp" IsVisible="False"></Label>
             <Label x:Name="AdminLabel" IsVisible="False"></Label>
-
+        
 
         <Button x:Name="LogOut" BackgroundColor="Black" Text="Log Out" TextColor="White" Clicked="LogOut_Clicked"/>
         <Button x:Name="NewClassButton" BackgroundColor="Black" Text="Create a class" TextColor="White" Clicked="NewClassButton_Clicked"/>
@@ -36,7 +36,8 @@
         <Button x:Name="CreateNurseCode" BackgroundColor="Black" Text="Create a nurse verification code" TextColor="White" Clicked="CreateNurseCode_Clicked"/>
         <Button x:Name="JoinClassButton" BackgroundColor="Black" Text="Join a Class" TextColor="White" Clicked="JoinClassButton_Clicked"/>
         <Button x:Name="AddInfo" Text="Add Info" BackgroundColor="Black" TextColor="White" Clicked="AddInfo_Clicked"/>
-        <Button x:Name="AddInfoForNurses" Text="Add Info Manually" BackgroundColor="Black" TextColor="White" Clicked="AddInfoNurses_Clicked"/>
+<Button x:Name="ViewPeopleInClass" Text="View People in Class" BackgroundColor="Black" TextColor="White" IsVisible="False" Clicked="ViewPeopleInClass_Clicked"></Button>
+            <Button x:Name="AddInfoForNurses" Text="Add Info Manually" BackgroundColor="Black" TextColor="White" Clicked="AddInfoNurses_Clicked"/>
         <Button x:Name="ViewDataParentsAndTeachers" BackgroundColor="Black" TextColor="White" Text="View more data for your class/school" Clicked="ViewDataParentsAndTeachers_Clicked"/>
         <Button x:Name="ViewPastEnteredInfo" Clicked="ViewPastEnteredInfo_Clicked" Text="View Past Entered Info" BackgroundColor="Black" TextColor="White"></Button>
             <Button x:Name="ViewInfo" Text="View Info" BackgroundColor="Black" TextColor="White" Clicked="ViewInfo_Clicked"/>

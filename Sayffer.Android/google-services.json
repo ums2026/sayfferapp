@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "550737809452",
+    "firebase_url": "https://xamarinformsfirebase2-92714.firebaseio.com",
+    "project_id": "xamarinformsfirebase2-92714",
+    "storage_bucket": "xamarinformsfirebase2-92714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550737809452:android:f3e15eff4482366ad9c189",
+        "android_client_info": {
+          "package_name": "com.sayffer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550737809452-u3aj6t9o1urs6ko5b81jmgabdk7pr7gb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATN8Rc3Ss5KHKETqJ_4Blqs_L1Cfg3BVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550737809452-u3aj6t9o1urs6ko5b81jmgabdk7pr7gb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "550737809452-590du3ea6dnei4ibjctl7ki3leponbgf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sayffer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,7 +16,8 @@
     <PackageReference Include="Xamarin.Auth" Version="1.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="FirebaseDatabase.net" Version="4.0.6" />
-    <PackageReference Include="FirebaseAuthentication.net" Version="3.6.0" />
+    <PackageReference Include="FirebaseAuthentication.net" Version="3.7.1" />
+    <PackageReference Include="Plugin.PushNotification" Version="3.6.9" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper\" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Firebase.Auth;
 using Firebase.Database;
@@ -1170,6 +1171,13 @@ namespace Sayffer.Helper
               .Child("Persons")
               .Child(auth.User.LocalId)
               .PutAsync(new Person() { School = school, City = city, Role = role });
+
+            var httpClient = new HttpClient();
+            var response = httpClient.GetStringAsync(string.Format("https://us-central1-xamarinformsfirebase2-92714.cloudfunctions.net/subscribeToSchoolTopic", (city+school).ToLower().Replace(" ","") )).Result;
+
+            object Object = JsonConvert.DeserializeObject<Object>(response);
+            Console.WriteLine(Object.GetType());
+
             await firebaseClient
               .Child(((city + school).ToLower()).Replace(" ", ""))
               .Child(auth.User.LocalId)
@@ -2110,6 +2118,49 @@ namespace Sayffer.Helper
              .PostAsync(new Person() { Time = DateTime.Now.ToString("MM/dd/yyyy"), Notification = "Allergy Entered: " + foodallergies });
 
 
+        }
+        public static async Task<List<Person>> GetAllPeopleFromClassCode(string school, string city)
+        {
+            string Web_API_Key = "AIzaSyBjLg2kJqpKcECxDOdm2iQb6yz4utpVI5s";
+
+            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(Web_API_Key));
+            var savedfirebaseauth = JsonConvert.DeserializeObject<Firebase.Auth.FirebaseAuth>(Preferences.Get("MyFirebaseRefreshToken", ""));
+            var RefreshedContent = await authProvider.RefreshAuthAsync(savedfirebaseauth);
+            Preferences.Set("MyFirebaseRefreshToken", JsonConvert.SerializeObject(RefreshedContent));
+            string UsersEmailToDisplay = savedfirebaseauth.User.Email;
+            string Email = UsersEmailToDisplay;
+            Firebase.Auth.User user = savedfirebaseauth.User;
+
+            var firebaseClient = new FirebaseClient(
+                            url,
+                            new FirebaseOptions
+                            {
+                                AuthTokenAsyncFactory = () => Task.FromResult(RefreshedContent.FirebaseToken)
+                            });
+            var CitySchool = city + school;
+            var list = await FirebaseHelper.GetPersonsClassCodes();
+            var people = new List<Person>();
+            foreach(var classcode in list)
+            {
+                var peopleinclass = (await firebaseClient
+                  .Child(CitySchool.Replace(" ", "").ToLower())
+                  .Child("ClassInfo")
+                  .Child(classcode.ToLower())
+                  .OnceAsync<Person>())
+                  .Select(item => new Person
+                  {
+                      Name = item.Object.Name,
+                      ClassCode = classcode
+
+                  })
+                  .ToList();
+                foreach(var person in peopleinclass)
+                {
+                    people.Add(person);
+                }
+            }
+            
+            return people;
         }
 
         public static async Task AddMedicalAllergyStudent(string name, string role, string StudentName, string school, string city, string classcode, string medicalallergy, string email)

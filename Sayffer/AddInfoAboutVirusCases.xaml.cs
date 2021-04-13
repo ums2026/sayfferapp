@@ -155,8 +155,6 @@ namespace Sayffer
                 {
                     var httpContent = JsonConvert.SerializeObject(fcmBody);
                     var client = new HttpClient();
-                    string serverkey = "AAAAgDqIECw:APA91bFMNd3twf8jomqZyXNkY7zz8CvBX5ZlfknEEVoa6RtjkfKhMFhBy4onehiMuYVCTR91T5uHxJ7ie_zBmacMJZlVr-GEzxK3zN0s20HNjBbeTj2JzpUNdADRGv9VEUl4SPm5YoWT";
-                    string senderid = "550737809452";
                     var authorization = string.Format("key={0}", serverkey);
                     client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", authorization);
                     var stringContent = new StringContent(httpContent);
@@ -186,7 +184,7 @@ namespace Sayffer
         }
         async void EnterOther_Clicked(System.Object sender, System.EventArgs e)
         {
-            if (other.Text == null)
+            if (other.Text.ToString() == null)
             {
                 await App.Current.MainPage.DisplayAlert("Oops!", "Please fill in all fields", "Ok");
             }
@@ -241,6 +239,7 @@ namespace Sayffer
         }
 
         void BackButton_Clicked(System.Object sender, System.EventArgs e)
+
         {
             App.Current.MainPage = new NavigationPage(new DashboardPage());
 
