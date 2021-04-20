@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Firebase.Auth;
 using Newtonsoft.Json;
@@ -33,15 +33,23 @@ namespace Sayffer
                 FirebaseHelper firebaseHelper = new FirebaseHelper();
                 string usableEmail = UsersEmailToDisplay.Replace(".", ",");
                 string person = await FirebaseHelper.GetPersonSchool();
+                Person personrole = await FirebaseHelper.GetPerson();
+                if(personrole.Role != "Admin")
+                {                    App.Current.MainPage = new NavigationPage(new DashboardPage());
 
+                    await App.Current.MainPage.DisplayAlert("Oops!", "Error", "OK");
+                }
 
-
-                Random random = new Random();
-                string number = random.Next(10000).ToString();
-                string city = await FirebaseHelper.GetPersonCity();
-                string verificationcode = city + person + number;
-                RandomCode.Text = verificationcode.ToLower();
-                await FirebaseHelper.AddNurseVerificationCode(person, city, verificationcode);
+                else
+                {
+                    Random random = new Random();
+                    string number = random.Next(10000).ToString();
+                    string city = await FirebaseHelper.GetPersonCity();
+                    string verificationcode = city + person + number;
+                    RandomCode.Text = verificationcode.ToLower();
+                    await FirebaseHelper.AddNurseVerificationCode(person, city, verificationcode);
+                }
+                
             }
             catch (Exception x)
             {
