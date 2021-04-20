@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Firebase.Auth;
@@ -26,7 +26,7 @@ namespace Sayffer
 
             var authProvider = new FirebaseAuthProvider(new FirebaseConfig(Web_API_Key));
             try
-            {
+            { 
                 var savedfirebaseauth = JsonConvert.DeserializeObject<Firebase.Auth.FirebaseAuth>(Preferences.Get("MyFirebaseRefreshToken", ""));
                 var RefreshedContent = await authProvider.RefreshAuthAsync(savedfirebaseauth);
                 Preferences.Set("MyFirebaseRefreshToken", JsonConvert.SerializeObject(RefreshedContent));
@@ -36,55 +36,62 @@ namespace Sayffer
                 string usableEmail = UsersEmailToDisplay.Replace(".", ",");
                 Person person = await FirebaseHelper.GetPerson();
 
+                if(person.Role != "Teacher")
+                {                    App.Current.MainPage = new NavigationPage(new DashboardPage());
 
-
-                string personName = await FirebaseHelper.GetPersonName((person.City + person.School).ToLower().Replace(" ", ""));
-                string classcodename = personName.Replace(" ", "");
-                Random random = new Random();
-                var classcodelist = await FirebaseHelper.GetAllClassCodes((person.City + person.School).ToLower().Replace(" ", ""));
-
-                string number = random.Next(999).ToString();
-                if (classcodename.Length <= 4)
-                {
-                    string classcode = classcodename + number + random.Next(99).ToString();
-                    string personSchool = person.School;
-                    string personCity = person.City;
-
-                    await FirebaseHelper.AddClass(classcode.ToLower(), await FirebaseHelper.GetPersonName((person.City + person.School).Replace(" ", "").ToLower()), person.School, person.City, await FirebaseHelper.GetEmail(), person.Role);
-                    //RandomCode.Text = classcode.ToLower();
-                    /*if (Device.RuntimePlatform == "Android")
-                    {
-                        MessagingCenter.Send(this, "Joined class");
-                    }*/
-                    if (classcodelist.Contains(classcode))
-                    {
-                        GetInfoForCode();
-                    }
-                    else
-                    {
-                        RandomCode.Text = classcode.ToLower();
-
-                    }
+                    await App.Current.MainPage.DisplayAlert("Oops!", "Error", "OK");
                 }
+
                 else
                 {
-                    string classcode = classcodename + number;
-                    string personSchool = person.School;
-                    string personCity = person.City;
-                    await FirebaseHelper.AddClass(classcode.ToLower(), await FirebaseHelper.GetPersonName((person.City + person.School).Replace(" ", "").ToLower()), person.School, person.City, await FirebaseHelper.GetEmail(), person.Role);
-                    //RandomCode.Text = classcode.ToLower();
-                    /*if (Device.RuntimePlatform == "Android")
+                    string personName = await FirebaseHelper.GetPersonName((person.City + person.School).ToLower().Replace(" ", ""));
+                    string classcodename = personName.Replace(" ", "");
+                    Random random = new Random();
+                    var classcodelist = await FirebaseHelper.GetAllClassCodes((person.City + person.School).ToLower().Replace(" ", ""));
+
+                    string number = random.Next(999).ToString();
+                    if (classcodename.Length <= 4)
                     {
-                        MessagingCenter.Send(this, "Joined class");
-                    }*/
-                    if (classcodelist.Contains(classcode))
-                    {
-                        GetInfoForCode();
+                        string classcode = classcodename + number + random.Next(99).ToString();
+                        string personSchool = person.School;
+                        string personCity = person.City;
+
+                        await FirebaseHelper.AddClass(classcode.ToLower(), await FirebaseHelper.GetPersonName((person.City + person.School).Replace(" ", "").ToLower()), person.School, person.City, await FirebaseHelper.GetEmail(), person.Role);
+                        //RandomCode.Text = classcode.ToLower();
+                        /*if (Device.RuntimePlatform == "Android")
+                        {
+                            MessagingCenter.Send(this, "Joined class");
+                        }*/
+                        if (classcodelist.Contains(classcode))
+                        {
+                            GetInfoForCode();
+                        }
+                        else
+                        {
+                            RandomCode.Text = classcode.ToLower();
+
+                        }
                     }
                     else
                     {
-                        RandomCode.Text = classcode.ToLower();
+                        string classcode = classcodename + number;
+                        string personSchool = person.School;
+                        string personCity = person.City;
+                        await FirebaseHelper.AddClass(classcode.ToLower(), await FirebaseHelper.GetPersonName((person.City + person.School).Replace(" ", "").ToLower()), person.School, person.City, await FirebaseHelper.GetEmail(), person.Role);
+                        //RandomCode.Text = classcode.ToLower();
+                        /*if (Device.RuntimePlatform == "Android")
+                        {
+                            MessagingCenter.Send(this, "Joined class");
+                        }*/
+                        if (classcodelist.Contains(classcode))
+                        {
+                            GetInfoForCode();
+                        }
+                        else
+                        {
+                            RandomCode.Text = classcode.ToLower();
 
+                        }
                     }
                 }
 
