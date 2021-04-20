@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -1172,11 +1172,6 @@ namespace Sayffer.Helper
               .Child(auth.User.LocalId)
               .PutAsync(new Person() { School = school, City = city, Role = role });
 
-            var httpClient = new HttpClient();
-            var response = httpClient.GetStringAsync(string.Format("https://us-central1-xamarinformsfirebase2-92714.cloudfunctions.net/subscribeToSchoolTopic", (city+school).ToLower().Replace(" ","") )).Result;
-
-            object Object = JsonConvert.DeserializeObject<Object>(response);
-            Console.WriteLine(Object.GetType());
 
             await firebaseClient
               .Child(((city + school).ToLower()).Replace(" ", ""))
