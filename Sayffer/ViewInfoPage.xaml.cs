@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -42,13 +42,19 @@ namespace Sayffer
                 FirebaseHelper firebaseHelper = new FirebaseHelper();
                 string usableEmail = savedfirebaseauth.User.Email.Replace(".", ",");
                 Person person = await FirebaseHelper.GetPerson();
+                if (person.Role != "Nurse" && person.Role != "Admin")
+                {
+                    App.Current.MainPage = new NavigationPage(new DashboardPage());
+                    await App.Current.MainPage.DisplayAlert("Oops!", "Error", "OK");
 
-                string cityschool = (person.City.ToLower() + person.School.ToLower()).Replace(" ", "");
-
+                }
+                else {string cityschool = (person.City.ToLower() + person.School.ToLower()).Replace(" ", "");
+                     
 
                 var listofclasscodes = new List<string>();
 
                 var allclasscodes = await FirebaseHelper.GetAllClassCodes(cityschool);
+                
                 foreach (var classcode in allclasscodes)
                 {
                     string classcodeforuse = classcode.ToString();
@@ -73,6 +79,9 @@ namespace Sayffer
 
                 }
                 ClassCodes.ItemsSource = listofclasscodes;
+                
+                }
+                    
 
             }
             catch (Exception x)
