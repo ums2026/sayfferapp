@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,56 +43,64 @@ namespace Sayffer
                 "All parents",
                 "All administators"
             };
-                if(person.Role == "Teacher")
+                if(person.Role != "Parent")
                 {
-                    var personclasscode = await FirebaseHelper.GetPersonsClassCodes();
-                    ClassCodeSend.ItemsSource = personclasscode;
-                }
-                else {
-                    ClassCodeSend.IsVisible = false;
-                    var allclasscodes = await FirebaseHelper.GetAllClassCodes(cityschool);
-                foreach (var classcode in allclasscodes)
-                {
-                    string classcodeforuse = classcode.ToString();
-                    if (listofclasscodes.Contains(classcodeforuse.ToLower()))
+                    if (person.Role == "Teacher")
                     {
-                        listofclasscodes = listofclasscodes;
+                        var personclasscode = await FirebaseHelper.GetPersonsClassCodes();
+                        ClassCodeSend.ItemsSource = personclasscode;
                     }
                     else
                     {
-                        if (classcodeforuse.ToString() == "emptyatpresent")
+                        ClassCodeSend.IsVisible = false;
+                        var allclasscodes = await FirebaseHelper.GetAllClassCodes(cityschool);
+                        foreach (var classcode in allclasscodes)
                         {
-                            listofclasscodes = listofclasscodes;
-                        }
-                        else
-                        {
-                            if (classcodeforuse != "emptyatpresent" && classcodeforuse != "EmptyAtPresent")
+                            string classcodeforuse = classcode.ToString();
+                            if (listofclasscodes.Contains(classcodeforuse.ToLower()))
                             {
-                                listofclasscodes.Add(classcodeforuse.ToLower());
+                                listofclasscodes = listofclasscodes;
+                            }
+                            else
+                            {
+                                if (classcodeforuse.ToString() == "emptyatpresent")
+                                {
+                                    listofclasscodes = listofclasscodes;
+                                }
+                                else
+                                {
+                                    if (classcodeforuse != "emptyatpresent" && classcodeforuse != "EmptyAtPresent")
+                                    {
+                                        listofclasscodes.Add(classcodeforuse.ToLower());
+
+                                    }
+                                }
 
                             }
-                        }
 
+
+                        }
                     }
 
 
-                }
-                }
-                
+                    if (person.Role != "Nurse" && person.Role != "Admin")
+                    {
+                        SendTo.SetValue(IsVisibleProperty, false);
 
-                if (person.Role != "Nurse" && person.Role != "Admin")
-                {
-                    SendTo.SetValue(IsVisibleProperty, false);
+                    }
+                    else
+                    {
+                        SendTo.ItemsSource = listofclasscodes;
 
+                    }
                 }
-                else
-                {
-                    SendTo.ItemsSource = listofclasscodes;
+                else {                    App.Current.MainPage = new NavigationPage(new DashboardPage());
 
+                    await App.Current.MainPage.DisplayAlert("Oops!", "Error", "OK");
                 }
             }
             catch (Exception x)
-            {
+            { 
                 Console.WriteLine(x.Message);
                 await App.Current.MainPage.DisplayAlert("Oops!", "Token Expired", "OK");
             }
@@ -163,3 +171,4 @@ namespace Sayffer
         }
     }
 }
+
