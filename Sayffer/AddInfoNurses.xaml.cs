@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -83,6 +83,7 @@ namespace Sayffer
 
         async void GetProfilInformationAndRefreshToken()
         {
+
             var authProvider = new FirebaseAuthProvider(new FirebaseConfig(Web_API_Key));
             /*try
             {*/
@@ -93,40 +94,48 @@ namespace Sayffer
             FirebaseHelper firebaseHelper = new FirebaseHelper();
             string usableEmail = savedfirebaseauth.User.Email.Replace(".", ",");
             Person person = await FirebaseHelper.GetPerson();
-
-            string cityschool = (person.City.ToString().ToLower() + person.School.ToString().ToLower()).Replace(" ", "");
-
-
-            var listofclasscodes = new List<string>();
-
-            var allclasscodes = await FirebaseHelper.GetAllClassCodes(cityschool);
-            foreach (string classcode in allclasscodes)
+            if(person.Role != "Nurse")
+            {                App.Current.MainPage = new NavigationPage(new DashboardPage());
+                 
+                await App.Current.MainPage.DisplayAlert("Oops!", "Error", "OK");
+            }
+            else
             {
-                string classcodeforuse = classcode;
-                if (listofclasscodes.Contains(classcodeforuse.ToLower()))
+                string cityschool = (person.City.ToString().ToLower() + person.School.ToString().ToLower()).Replace(" ", "");
+
+
+                var listofclasscodes = new List<string>();
+
+                var allclasscodes = await FirebaseHelper.GetAllClassCodes(cityschool);
+                foreach (string classcode in allclasscodes)
                 {
-                    listofclasscodes = listofclasscodes;
-                }
-                else
-                {
-                    if (classcodeforuse != "emptyatpresent" && classcodeforuse != "EmptyAtPresent")
+                    string classcodeforuse = classcode;
+                    if (listofclasscodes.Contains(classcodeforuse.ToLower()))
                     {
-                        listofclasscodes.Add(classcodeforuse.ToLower());
+                        listofclasscodes = listofclasscodes;
+                    }
+                    else
+                    {
+                        if (classcodeforuse != "emptyatpresent" && classcodeforuse != "EmptyAtPresent")
+                        {
+                            listofclasscodes.Add(classcodeforuse.ToLower());
+
+                        }
 
                     }
 
+
                 }
+                ClassCodes.ItemsSource = listofclasscodes;
 
-
+                /*}
+                catch (Exception x)
+                {
+                Console.WriteLine(x.Message);
+                await App.Current.MainPage.DisplayAlert("Alert", "Oh no! Token expired!", "Ok");
+                }*/
             }
-            ClassCodes.ItemsSource = listofclasscodes;
 
-            /*}
-            catch (Exception x)
-            {
-            Console.WriteLine(x.Message);
-            await App.Current.MainPage.DisplayAlert("Alert", "Oh no! Token expired!", "Ok");
-            }*/
 
 
 
