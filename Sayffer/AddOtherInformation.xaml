@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Sayffer.AddOtherInformation">
+    <ContentPage.Content>
+
+        <ScrollView>
+        <StackLayout Margin="20" VerticalOptions="CenterAndExpand" Spacing="20" Orientation="Vertical">
+            <Picker x:Name="casespicker" Title="Select Other Info Here"/>
+            <Picker x:Name="studentname" Title="Student Name" IsVisible="False" />
+            <Label Text="Your student's name and info will only be visible to the school nurse"/>
+            <Label Text="After you have clicked enter, do not click multiple times. Wait for a confirmation message."></Label>
+            <Entry x:Name="other" Placeholder="Enter Info here" IsVisible="false"/>
+            <Button x:Name="Enter" BackgroundColor="Black" TextColor="White" Text="Enter" Clicked="Enter_Clicked" BorderColor="White" BorderWidth="1"/>
+            <Button x:Name="EnterOther" BackgroundColor="Black" TextColor="White" IsVisible="false" Text="Enter" Clicked="EnterOther_Clicked" BorderColor="White" BorderWidth="1"></Button>
+            <Button x:Name="BackButton" Text="Back to Dashboard" BackgroundColor="Black" TextColor="White" Clicked="BackButton_Clicked" BorderColor="White" BorderWidth="1"/>
+        </StackLayout>
+            </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
